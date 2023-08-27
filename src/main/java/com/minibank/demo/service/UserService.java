@@ -27,7 +27,6 @@ public class UserService {
     }
 
     public List<User> findAll(){
-        log.info("IN UserService findAll {}");
         return userRepository.findAll();
     }
 

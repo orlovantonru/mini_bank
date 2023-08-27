@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/users/")
 public class UserRestControllerV1 {
 
     @Autowired
@@ -26,13 +26,13 @@ public class UserRestControllerV1 {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        User customer = this.userService.findById(userId);
+        User user = this.userService.findById(userId);
 
-        if (customer == null) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -62,9 +62,9 @@ public class UserRestControllerV1 {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> deleteUser(@PathVariable("id") Long id) {
-        User customer = this.userService.findById(id);
+        User user = this.userService.findById(id);
 
-        if (customer == null) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -74,13 +74,13 @@ public class UserRestControllerV1 {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<User>> getAllCustomers() {
-        List<User> customers = this.userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = this.userService.findAll();
 
-        if (customers.isEmpty()) {
+        if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customers, HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
