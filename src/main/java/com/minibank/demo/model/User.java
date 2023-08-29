@@ -1,5 +1,6 @@
 package com.minibank.demo.model;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
