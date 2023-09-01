@@ -20,6 +20,10 @@ jobs:
           java-version: '17'
       - name: Maven Package
         run: mvn -B -e -X clean package -DskipTests
+      - name: Test Coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
 
          
