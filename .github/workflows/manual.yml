@@ -16,7 +16,7 @@ jobs:
           distribution: 'liberica' 
           java-version: '17'
       - name: Maven Package
-        run: mvn -B -e -X clean package -DskipTests
+        run: mvn --batch-mode --update-snapshots package
 
 #     Set global environment variables:
       - name: set global env
