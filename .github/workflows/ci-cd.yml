@@ -20,11 +20,11 @@ jobs:
           java-version: '17'
       - name: Maven Package
         run: mvn --batch-mode --update-snapshots package
-/*        run: mvn -B -e -X clean package -DskipTests
-      - name: Test Coverage
-        uses: codecov/codecov-action@v1
-        with:*/
-          token: ${{ secrets.CODECOV_TOKEN }}
+#        run: mvn -B -e -X clean package -DskipTests
+#      - name: Test Coverage
+#        uses: codecov/codecov-action@v1
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}*/
 
 
          
