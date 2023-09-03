@@ -16,21 +16,21 @@ import java.util.List;
 
 @RestController
 @Component
-@RequestMapping("/api/v1/users/")
+@RequestMapping("/bank/v1/users/")
 public class UserRestControllerV1 {
 
     @Autowired
     private UserService userService;
 
-    @Value("${featire_flags.getuser}")
+ /*   @Value("${featire_flags.getuser}")
     private String featire_flags_getuser;
 
     @Value("${ffeatire_flags.seveuser}")
-    private String featire_flags_seveuser;
+    private String featire_flags_seveuser;*/
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> getUser(@PathVariable("id") Long userId) {
-        if (featire_flags_getuser.equals("1")) {
+       /* if (featire_flags_getuser.equals("1")) {*/
             if (userId == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -43,14 +43,14 @@ public class UserRestControllerV1 {
 
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        else {
+      /*  else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> saveUser(@RequestBody @Valid User user) {
-        if (featire_flags_seveuser.equals("1")) {
+      /*  if (featire_flags_seveuser.equals("1")) {*/
             HttpHeaders headers = new HttpHeaders();
 
             if (user == null) {
@@ -60,10 +60,10 @@ public class UserRestControllerV1 {
             this.userService.saveUser(user);
             return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
         }
-        else {
+     /*   else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-    }
+    }*/
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
