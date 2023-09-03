@@ -5,7 +5,7 @@ info:
 servers:
   - url: /
 paths:
-  /bank/accounts:
+  /bank/v1/accounts:
     get:
       summary: Gets an array of accounts
       description: Gets an array of accounts
@@ -33,7 +33,7 @@ paths:
           description: Invalid input
           content: {}
       x-codegen-request-body-name: body
-  /bank/account/{id}:
+  /bank/v1/account/{id}:
     get:
       summary: Gets an account
       description: Gets a account
@@ -58,7 +58,7 @@ paths:
         404:
           description: Account not found
           content: {}
-  /bank/users:
+  /bank/v1/users:
     get:
       summary: Gets an array of users
       description: Gets an array of users
@@ -72,8 +72,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
     put:
-      summary: Put an user
-      description: Put an user
+      summary: Update an user
+      description: Update an user
       operationId: ""
       requestBody:
         content:
@@ -86,7 +86,37 @@ paths:
           description: Invalid input
           content: {}
       x-codegen-request-body-name: body
-  /bank/user/{id}:
+    post:
+      summary: Save an user
+      description: Save an user
+      operationId: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        405:
+          description: Invalid input
+          content: { }
+      x-codegen-request-body-name: body
+      delete:
+        summary: Delete an user
+        description: Delete an user
+        operationId: ""
+        requestBody:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+          required: true
+        responses:
+          405:
+            description: Invalid input
+            content: { }
+        x-codegen-request-body-name: body
+  /bank/v1/user/{id}:
     get:
       summary: Gets an user
       description: Gets a user
