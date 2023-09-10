@@ -130,4 +130,54 @@ public class UserRestControllerV1Test {
                 .andExpect(jsonPath("$.password", is(user.getPassword())));
 
     }
+
+
+    // JUnit test for update user REST API - positive scenario
+    @Test
+    public void givenUpdatedUser_whenUpdateUser_thenReturnUpdateUserObject() throws Exception{
+        // given - precondition or setup
+        long userId = 1L;
+        User savedUser = User.builder()
+                .firstName("Ramesh")
+                .lastName("Fadatare")
+                .email("ramesh@gmail.com")
+                .build();
+
+        User updatedUser = User.builder()
+                .firstName("Ram")
+                .lastName("Jadhav")
+                .email("ram@gmail.com")
+                .build();
+        given(userService.findById(userId)).willReturn(savedUser);
+        given(userService.saveUser(any(User.class)))
+                .willAnswer((invocation)-> invocation.getArgument(0));
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(put("/bank/v1/users/{id}", userId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatedUser)));
+
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.firstName", is(updatedUser.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(updatedUser.getLastName())))
+                .andExpect(jsonPath("$.email", is(updatedUser.getEmail())));
+    }
+
+    // JUnit test for delete user REST API
+    @Test
+    public void givenUserId_whenDeleteUser_thenReturn200() throws Exception{
+        // given - precondition or setup
+        long userId = 1L;
+        willDoNothing().given(userService).deleteById(userId);
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(delete("/bank/v1/users/{id}", userId));
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print());
+    }
 }

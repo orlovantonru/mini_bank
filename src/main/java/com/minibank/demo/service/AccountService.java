@@ -34,7 +34,9 @@ public class AccountService {
         log.info("IN AccountService saveUser {}", account);
         return accountRepository.save(account);
     }
-
+    public Account updateAccount(Account updatedAccount) {
+        return accountRepository.save(updatedAccount);
+    }
     public void deleteById(Long id){
         log.info("IN AccountService deleteById {}", id);
         accountRepository.deleteById(id);

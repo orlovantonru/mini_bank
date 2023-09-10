@@ -65,7 +65,7 @@ public class UserRestControllerV1 {
             }
     }*/
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
