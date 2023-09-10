@@ -40,7 +40,7 @@ class UserRepositoryTest {
 
     @Test
     @Order(2)
-    public void updateEmployeeTest(){
+    public void updateUserTest(){
 
         User user = userRepository.findById(1L).get();
 
@@ -54,7 +54,7 @@ class UserRepositoryTest {
 
     @Test
     @Order(3)
-    public void deleteEmployeeTest(){
+    public void deleteUserTest(){
 
         User user = userRepository.findById(1L).get();
 

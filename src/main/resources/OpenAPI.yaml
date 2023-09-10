@@ -101,21 +101,6 @@ paths:
           description: Invalid input
           content: { }
       x-codegen-request-body-name: body
-      delete:
-        summary: Delete an user
-        description: Delete an user
-        operationId: ""
-        requestBody:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/User'
-          required: true
-        responses:
-          405:
-            description: Invalid input
-            content: { }
-        x-codegen-request-body-name: body
   /bank/v1/user/{id}:
     get:
       summary: Gets an user
@@ -141,6 +126,21 @@ paths:
         404:
           description: User not found
           content: {}
+    delete:
+      summary: Delete an user
+      description: delete an user
+      operationId: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        405:
+          description: Invalid delete
+          content: { }
+      x-codegen-request-body-name: body
 components:
   schemas:
     User:
