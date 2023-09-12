@@ -5,8 +5,6 @@ import com.minibank.demo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -26,7 +24,8 @@ public class AccountService {
         return accountRepository.getOne(id);
     }
 
-    public List<Account> findAll(){
+    public List<Account> findAccountAll(){
+        log.info("IN AccountService findAccountAll");
         return accountRepository.findAll();
     }
 
@@ -34,9 +33,7 @@ public class AccountService {
         log.info("IN AccountService saveUser {}", account);
         return accountRepository.save(account);
     }
-    public Account updateAccount(Account updatedAccount) {
-        return accountRepository.save(updatedAccount);
-    }
+
     public void deleteById(Long id){
         log.info("IN AccountService deleteById {}", id);
         accountRepository.deleteById(id);

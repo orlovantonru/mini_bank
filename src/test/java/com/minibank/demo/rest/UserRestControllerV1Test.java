@@ -2,6 +2,8 @@ package com.minibank.demo.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minibank.demo.model.User;
+import com.minibank.demo.model.Account;
+import com.minibank.demo.service.AccountService;
 import com.minibank.demo.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class UserRestControllerV1Test {
 
     @MockBean
     private UserService userService;
+    @MockBean
+    private AccountService accountService;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -82,7 +86,7 @@ public class UserRestControllerV1Test {
 
     // JUnit test for Get All users REST API
     @Test
-    public void givenListOfUsers_whenGetAllUsers_thenReturnEUsersList() throws Exception{
+    public void givenListOfUsers_whenGetAllUsers_thenReturnUsersList() throws Exception{
         // given - precondition or setup
         List<User> listOfUsers = new ArrayList<>();
         listOfUsers.add(User.builder().firstName("Ivan").lastName("Ivanov").email("ivan@gmail.com").build());
@@ -179,5 +183,38 @@ public class UserRestControllerV1Test {
         // then - verify the output
         response.andExpect(status().isOk())
                 .andDo(print());
+    }
+
+    @Test
+    public void givenAccountId_whenDeleteAccount_thenReturn200() throws Exception{
+        // given - precondition or setup
+        long accountId = 1L;
+        willDoNothing().given(accountService).deleteById(accountId);
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(delete("/bank/v1/accounts/{id}", accountId));
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void givenListOfAccounts_whenGetAllAccount_thenReturnAccountsList() throws Exception{
+        // given - precondition or setup
+        List<Account> listOfAccounts = new ArrayList<>();
+        listOfAccounts.add(Account.builder().id(1L).accountNumber("40817810000000000012").userId(1L).build());
+        listOfAccounts.add(Account.builder().id(2L).accountNumber("40817810000000000013").userId(1L).build());
+        given(accountService.findAccountAll()).willReturn(listOfAccounts);
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(get("/bank/v1/accounts/"));
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.size()",
+                        is(listOfAccounts.size())));
+
     }
 }

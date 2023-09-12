@@ -5,8 +5,6 @@ import com.minibank.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -27,6 +25,7 @@ public class UserService {
     }
 
     public List<User> findAll(){
+        log.info("IN UserService findAll");
         return userRepository.findAll();
     }
 
