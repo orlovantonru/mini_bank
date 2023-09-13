@@ -1,5 +1,6 @@
 package com.minibank.demo.service;
 
+import com.minibank.demo.exception.UserNotFoundException;
 import com.minibank.demo.model.User;
 import com.minibank.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class UserService {
 
     public User findById(Long id){
         log.info("IN UserService getById {}", id);
-        return userRepository.getOne(id);
+        if ((userRepository.findById(id).isEmpty()))
+            throw new UserNotFoundException("Requested User does not exist");
+        return userRepository.findById(id).get();
     }
 
     public List<User> findAll(){
@@ -29,13 +32,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User saveUser(User user){
+    public String saveUser(User user){
         log.info("IN UserService saveUser {}", user);
-        return userRepository.save(user);
+        return "Success";
     }
 
-    public void deleteById(Long id){
+    public String deleteById(Long id){
         log.info("IN UserService deleteById {}", id);
         userRepository.deleteById(id);
+        return "Success";
     }
 }

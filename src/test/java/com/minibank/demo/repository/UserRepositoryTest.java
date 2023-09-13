@@ -42,7 +42,6 @@ class UserRepositoryTest {
     public void getListOfUserTest(){
 
         List<User> users = userRepository.findAll();
-
         Assertions.assertThat(users.size()).isGreaterThan(0);
 
     }
@@ -71,8 +70,6 @@ class UserRepositoryTest {
             User user = userRepository.findById(1L).get();
 
             userRepository.delete(user);
-
-            //userRepository.deleteById(1L);
 
             User user1 = null;
 

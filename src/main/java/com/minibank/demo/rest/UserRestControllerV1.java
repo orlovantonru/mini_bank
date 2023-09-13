@@ -28,15 +28,11 @@ public class UserRestControllerV1 {
     private UserService userService;
     private AccountService accountService;
 
- /*   @Value("${featire_flags.getuser}")
-    private String featire_flags_getuser;
-
-    @Value("${ffeatire_flags.seveuser}")
-    private String featire_flags_seveuser;*/
+   @Value("${featire_flags.getusers}")
+    private String featire_flags_getusers;
 
     @RequestMapping(value = "/bank/v1/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> getUser(@PathVariable("id") Long userId) {
-        /* if (featire_flags_getuser.equals("1")) {*/
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -49,14 +45,10 @@ public class UserRestControllerV1 {
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-      /*  else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
 
     @RequestMapping(value = "/bank/v1/users/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> saveUser(@RequestBody @Valid User user) {
-        /*  if (featire_flags_seveuser.equals("1")) {*/
+
         HttpHeaders headers = new HttpHeaders();
 
         if (user == null) {
@@ -66,10 +58,6 @@ public class UserRestControllerV1 {
         this.userService.saveUser(user);
         return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
     }
-     /*   else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-    }*/
 
     @RequestMapping(value = "/bank/v1/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
@@ -99,13 +87,16 @@ public class UserRestControllerV1 {
 
     @RequestMapping(value = "/bank/v1/users/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = this.userService.findAll();
-
-        if (users.isEmpty()) {
+        if (featire_flags_getusers.equals("0")) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+            List<User> users = this.userService.findAll();
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bank/v1/accounts/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
