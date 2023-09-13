@@ -37,6 +37,15 @@ CREATE INDEX accounts_idaccount_idx ON public.accounts USING btree (idaccount);
 ALTER TABLE public.accounts ADD CONSTRAINT accounts_fk FOREIGN KEY (iduser) REFERENCES public.users(id_user);
 
 
-INSERT INTO public.users (id_user,"name",last_name,surname,username,email,"password") VALUES
-                                                                                          (1,'Иван','Иванов','Петрович','iw','iw@mail.ru','234'),
-                                                                                          (2,'Сергей','Иванов','Петрович','as','as@mail.ru','567');
+INSERT INTO public.users (id_user,"name",last_name,surname,username,email,"password")
+VALUES
+(1,'Иван','Иванов','Петрович','iw','iw@mail.ru','234'),
+(2,'Сергей','Иванов','Петрович','as','as@mail.ru','567');
+
+insert into public.accounts (idaccount, numaccount, dateaccount, iduser)
+values (1,'40817810000000000012', '2023-09-09', 1);
+
+insert into public.accounts (idaccount, numaccount, dateaccount, iduser)
+values (2,'40817810000000000013', '2023-09-09', 1);
+
+COMMIT;
