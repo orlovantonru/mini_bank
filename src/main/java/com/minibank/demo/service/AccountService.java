@@ -25,7 +25,7 @@ public class AccountService {
         log.info("IN AccountService getById {}", id);
         if ((accountRepository.findById(id).isEmpty()))
             throw new AccountNotFoundException("Requested Account does not exist");
-        return accountRepository.getOne(id);
+        return accountRepository.findById(id).get();
     }
 
     public List<Account> findAccountAll(){
