@@ -4,6 +4,7 @@ import com.minibank.demo.model.User;
 import com.minibank.demo.response.ResponseHandler;
 import com.minibank.demo.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class RestControllerV1
 {
     UserService userService;
 
+    @Value("${featire_flags.getusers}")
+    private String featire_flags_getusers;
+
     public RestControllerV1(UserService userService) {
         this.userService = userService;
     }
@@ -27,6 +31,7 @@ public class RestControllerV1
 
     public ResponseEntity<Object> getUserDetails(@PathVariable("userId") Long userId)
     {
+
         return ResponseHandler.responseBuilder("Requested User Details are given here",
                 HttpStatus.OK, userService.findById(userId));
     }
@@ -35,6 +40,9 @@ public class RestControllerV1
     @GetMapping("/")
     public List<User> getAllUserDetails()
     {
+        if (featire_flags_getusers.equals("0")) {
+            return null;
+        }
         return userService.findAll();
     }
 
