@@ -3,6 +3,8 @@ package com.minibank.demo.rest;
 import com.minibank.demo.model.User;
 import com.minibank.demo.response.ResponseHandler;
 import com.minibank.demo.service.UserService;
+import com.minibank.demo.model.Account;
+import com.minibank.demo.service.AccountService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -10,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/bank/user")
+@RequestMapping("/bank")
 public class RestControllerV1
 {
     UserService userService;
+    AccountService accountService;
 
     @Value("${featire_flags.getusers}")
     private String featire_flags_getusers;
@@ -25,7 +29,7 @@ public class RestControllerV1
     }
 
     // Read Specific User Details from DB
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     @ApiOperation(value ="User id", notes="Provide user details",
             response = ResponseEntity.class)
 
@@ -37,7 +41,7 @@ public class RestControllerV1
     }
 
     // Read All Users Details from DB
-    @GetMapping("/")
+    @GetMapping("/user/")
     public List<User> getAllUserDetails()
     {
         if (featire_flags_getusers.equals("0")) {
@@ -46,21 +50,147 @@ public class RestControllerV1
         return userService.findAll();
     }
 
-    @PostMapping("/")
+    @GetMapping("/account/{userId}")
+    public List<Account> getAccountByUserDetails(@PathVariable("userId") Long userId)
+    {
+        return accountService.findByUserId(userId);
+    }
+    @PostMapping("/user/")
     public String createUserDetails(@RequestBody User user)
     {
         userService.saveUser(user);
         return "User Created Successfully";
     }
 
-    @PutMapping("/")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @PutMapping("/user/")
     public String updateUserDetails(@RequestBody User user)
     {
         userService.saveUser(user);
         return "User Updated Successfully";
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/user/{userId}")
     public String deleteUserDetails(@PathVariable("userId") Long userId)
     {
         userService.deleteById(userId);

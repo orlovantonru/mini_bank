@@ -58,7 +58,7 @@ class RestControllerTest {
     @Test
     void getUsersDetails() throws  Exception {
         when(userService.findAll()).thenReturn(userList);
-        this.mockMvc.perform(get("/bank/user"))
+        this.mockMvc.perform(get("/bank/user/"))
                 .andDo(print()).andExpect(status().isOk());
     }
 
@@ -70,7 +70,7 @@ class RestControllerTest {
         String requestJson=ow.writeValueAsString(userOne);
 
         when(userService.saveUser(userOne)).thenReturn("Success");
-        this.mockMvc.perform(post("/bank/user")
+        this.mockMvc.perform(post("/bank/user/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print()).andExpect(status().isOk());
@@ -85,7 +85,7 @@ class RestControllerTest {
 
         when(userService.saveUser(userOne))
                 .thenReturn("User Updated Successfully");
-        this.mockMvc.perform(put("/bank/user")
+        this.mockMvc.perform(put("/bank/user/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andDo(print()).andExpect(status().isOk());
