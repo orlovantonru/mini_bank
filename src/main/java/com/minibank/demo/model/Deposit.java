@@ -7,23 +7,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="accounts")
-public class Account {
+@Table(name="deposits")
+public class Deposit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idaccount")
+    @Column(name = "iddeposit")
     private Long id;
-    @Column(name = "numaccount")
-    private String accountNumber;
-    @Column(name = "dateaccount")
-    private Date accountDate;
-    @Column(name = "iduser")
-    private Long userId;
-
+    @Column(name = "idaccount")
+    private Long idAccount;
+    @Column(name = "dateopen")
+    private Date openDate;
+    @Column(name = "dateclose")
+    private Date closeDate;
+    @Column(name = "percent")
+    private Float percent;
 }

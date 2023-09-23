@@ -48,4 +48,22 @@ values (1,'40817810000000000012', '2023-09-09', 1);
 insert into public.accounts (idaccount, numaccount, dateaccount, iduser)
 values (2,'40817810000000000013', '2023-09-09', 1);
 
+CREATE TABLE public.deposits (
+                             iddeposit int4 NOT NULL,
+                              idaccount int4 NOT NULL,
+                             dateopen date NULL,
+                             dateclose date NULL,
+                             percent numeric NULL,
+                              CONSTRAINT iddeposit_pk PRIMARY KEY (iddeposit)
+);
+
+CREATE TABLE public.transactions (
+                                idtransaction int4 NOT NULL,
+                                 idaccountcredit int4 NOT NULL,
+                                idaccountdebit int4 NOT NULL,
+                                 dateopen date NULL,
+                                 sum numeric NULL,
+                                 CONSTRAINT idtransaction_pk PRIMARY KEY (idtransaction)
+);
+
 COMMIT;

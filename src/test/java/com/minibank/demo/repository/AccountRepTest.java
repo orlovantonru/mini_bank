@@ -74,7 +74,7 @@ public class AccountRepTest {
 
             Account account1 = null;
 
-            Optional<Account> optionalAccount = accountRepository.findByUserId(1L);
+            Optional<Account> optionalAccount = accountRepository.findById(1L);
 
             if (optionalAccount.isPresent()) {
                 account1 = optionalAccount.get();
@@ -84,4 +84,9 @@ public class AccountRepTest {
         }
     }
 
+    @Test
+    public void findByUserIdTest() {
+        List<Account> account = accountRepository.findByUserId(1L);
+        Assertions.assertThat(account.size()).isGreaterThan(0);
+    }
 }
