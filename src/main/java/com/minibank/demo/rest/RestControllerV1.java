@@ -19,13 +19,13 @@ import java.util.Optional;
 public class RestControllerV1
 {
     UserService userService;
-    AccountService accountService;
-
     @Value("${featire_flags.getusers}")
     private String featire_flags_getusers;
 
     public RestControllerV1(UserService userService) {
+
         this.userService = userService;
+
     }
 
     // Read Specific User Details from DB
@@ -50,11 +50,7 @@ public class RestControllerV1
         return userService.findAll();
     }
 
-    @GetMapping("/account/{userId}")
-    public List<Account> getAccountByUserDetails(@PathVariable("userId") Long userId)
-    {
-        return accountService.findByUserId(userId);
-    }
+
     @PostMapping("/user/")
     public String createUserDetails(@RequestBody User user)
     {
