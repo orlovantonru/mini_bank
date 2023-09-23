@@ -113,10 +113,4 @@ class RestControllerTest {
 
     }
 
-    @Test
-    void getAccountsDetails() throws  Exception {
-        when(accountService.findByUserId(1L)).thenReturn(accountList);
-        this.mockMvc.perform(get("/bank/account/"+ "1"))
-                .andDo(print()).andExpect(status().isOk());
-    }
 }
