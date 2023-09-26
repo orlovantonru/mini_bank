@@ -46,6 +46,7 @@ public class AccountService {
     }
 
     public List<Account> findByUserId(Long id){
+        log.info("IN AccountService findByUserId {}", id);
         return accountRepository.findByUserId(id);
     }
 }

@@ -37,7 +37,7 @@ class AccountServiceTest {
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
         accountService = new AccountService(accountRepository);
-        account = new Account(1L,"40817810000000000013",date, 1L);
+        account = new Account(1L,"40817810000000000013",date, 1L, 10F,100000F);
     }
 
     @AfterEach

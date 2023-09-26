@@ -26,7 +26,7 @@ public class AccountRepTest {
     @BeforeEach
     void setUp() {
         account = new Account(1L,"40817810000000000012",
-                date, 1L);
+                date, 1L, 10F,100000F);
         accountRepository.save(account);
     }
 

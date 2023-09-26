@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import com.minibank.demo.model.Account;
 import com.minibank.demo.model.User;
-import com.minibank.demo.service.AccountService;
 import com.minibank.demo.service.UserService;
+import com.minibank.demo.service.AccountService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +37,7 @@ class RestControllerTest {
     @MockBean
     private UserService userService;
     private AccountService accountService;
+
     User userOne;
     User userTwo;
     List<User> userList= new ArrayList<>();
@@ -52,8 +53,8 @@ class RestControllerTest {
         userList.add(userOne);
         userList.add(userTwo);
 
-        accountOne = new Account(1L,"40817810000000000012",date,1L);
-        accountTwo = new Account(2L,"40817810000000000013",date,1L);
+        accountOne = new Account(1L,"40817810000000000012",date,1L, 10F, 100000F);
+        accountTwo = new Account(2L,"40817810000000000013",date,1L, 9F,50000F);
         accountList.add(accountOne);
         accountList.add(accountTwo);
     }

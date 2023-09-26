@@ -25,5 +25,8 @@ public class Account {
     private Date accountDate;
     @Column(name = "iduser")
     private Long userId;
-
+    @Column(name = "percent")
+    private Float percent;
+    @Column(name = "saldo")
+    private Float saldo;
 }

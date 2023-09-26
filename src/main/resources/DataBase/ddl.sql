@@ -48,6 +48,10 @@ values (1,'40817810000000000012', '2023-09-09', 1);
 insert into public.accounts (idaccount, numaccount, dateaccount, iduser)
 values (2,'40817810000000000013', '2023-09-09', 1);
 
+insert into public.accounts (idaccount, numaccount, dateaccount, iduser)
+values (3,'20202810000000000013', '2023-09-09', 1);
+
+
 CREATE TABLE public.deposits (
                              iddeposit int4 NOT NULL,
                               idaccount int4 NOT NULL,
@@ -56,6 +60,9 @@ CREATE TABLE public.deposits (
                              percent numeric NULL,
                               CONSTRAINT iddeposit_pk PRIMARY KEY (iddeposit)
 );
+
+insert into public.deposits (iddeposit, dateopen, idaccount, percent)
+values (1, '2023-09-09', 1, 10.2);
 
 CREATE TABLE public.transactions (
                                 idtransaction int4 NOT NULL,
@@ -66,4 +73,29 @@ CREATE TABLE public.transactions (
                                  CONSTRAINT idtransaction_pk PRIMARY KEY (idtransaction)
 );
 
+insert into  public.transactions (idtransaction, idaccountcredit, idaccountdebit, dateopen, sum)
+values (1,1,3, '2023-09-09', 10000);
+insert into  public.transactions (idtransaction, idaccountcredit, idaccountdebit, dateopen, sum)
+values (2,1,3, '2023-09-09', 20000);
+
+insert into  public.transactions (idtransaction, idaccountcredit, idaccountdebit, dateopen, sum)
+values (3,3,1, '2023-09-09', 25000);
+
 COMMIT;
+select * from transactions;
+
+SELECT A.NUMACCOUNT, A.DATEACCOUNT, D.dateopen,  D.percent, Sum(TC.sum), Sum(TD.sum) as Saldo
+FROM public.accounts A, public.deposits D, public.transactions TC, public.transactions TD
+                                   where A.idaccount = D.idaccount
+                                       and D.dateclose is null
+                                     and A.idaccount = TC.idaccountcredit
+                                    and A.idaccount = TD.idaccountdebit
+group by A.NUMACCOUNT, A.DATEACCOUNT, D.dateopen,  D.percent;
+
+SELECT A.NUMACCOUNT, A.DATEACCOUNT, D.dateopen,  D.percent,
+       (select sum(TD.sum) from transactions TD  where TD.idaccountdebit = A.idaccount ) oborot_debit,
+       (select sum(TC.sum) from transactions TC where TC.idaccountcredit = A.idaccount) oborot_credit,
+       (select sum(TC.sum) from transactions TC where TC.idaccountcredit = A.idaccount) - (select sum(TD.sum) from transactions TD  where TD.idaccountdebit = A.idaccount ) saldo
+FROM public.accounts A, public.deposits D
+where A.idaccount = D.idaccount
+  and D.dateclose is null

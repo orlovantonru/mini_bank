@@ -19,8 +19,11 @@ import java.util.Optional;
 public class RestControllerV1
 {
     UserService userService;
-    @Value("${featire_flags.getusers}")
-    private String featire_flags_getusers;
+    @Value("${featire_flags.users_get}")
+    private String featire_flags_users_get;
+
+    @Value("${featire_flags.user_create}")
+    private String featire_flags_user_create;
 
     public RestControllerV1(UserService userService) {
 
@@ -44,7 +47,7 @@ public class RestControllerV1
     @GetMapping("/user/")
     public List<User> getAllUserDetails()
     {
-        if (featire_flags_getusers.equals("0")) {
+        if (featire_flags_users_get.equals("0")) {
             return null;
         }
         return userService.findAll();
@@ -54,6 +57,9 @@ public class RestControllerV1
     @PostMapping("/user/")
     public String createUserDetails(@RequestBody User user)
     {
+        if (featire_flags_user_create.equals("0")) {
+            return null;
+        }
         userService.saveUser(user);
         return "User Created Successfully";
     }
