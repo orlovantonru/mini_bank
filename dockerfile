@@ -1,4 +1,5 @@
-FROM openjdk:17-jdk-slim-buster AS builder
+
+ROM openjdk:17-jdk-slim-buster AS builder
 
 WORKDIR /app
 
