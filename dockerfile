@@ -7,8 +7,4 @@ COPY . .
 RUN chmod a+x mvnw && \
 ./mvnw package
 
-FROM openjdk:17-jdk-slim-buster
-COPY --from=builder /app/target/*.jar /app
-
-WORKDIR /app
-ENTRYPOINT java -jar demo-*.jar
+ENTRYPOINT java -jar /app/target/demo-*.jar
