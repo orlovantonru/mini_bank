@@ -23,7 +23,9 @@ public class Account {
     private String accountNumber;
     @Column(name = "dateaccount")
     private Date accountDate;
+
     @Column(name = "iduser")
+   // @ManyToOne
     private Long userId;
 
 }

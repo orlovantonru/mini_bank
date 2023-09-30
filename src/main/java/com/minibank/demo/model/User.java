@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +30,7 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-
-
+  /*  @OneToMany
+    @JoinColumn(name = "iduser")
+    private List<Account> account;*/
 }
